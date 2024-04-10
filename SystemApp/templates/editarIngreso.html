@@ -1,0 +1,46 @@
+
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %} 
+
+{% block etiqueta %}
+    Detalles
+{% endblock etiqueta %}
+
+{% block botones %}
+
+    <div class="titulo-inicio">
+        <h1 style:"color:white">Gestor de Ingresos y Egresos</h1>
+    </div>
+
+
+{% endblock botones %}
+
+
+{% block contenido %}
+
+<div class="contenido-formulario-editar">
+    <div class="nuevo-ingreso-egreso">
+        <h3>Editar Ingreso</h3>
+
+      </div>
+
+    <div class="contenido-formulario-hijo-editar">
+        <form method="post">
+            <br/>
+            {% csrf_token %} 
+            {{ form|crispy }}
+            <br/>
+            <button type="submit" class="btn btn-primary"style="margin-right: 60px;">Guardar</button>
+            <a href="{% url 'detallesIngresos' form.instance.mes.id %}" class="btn btn-danger">Cancelar</a>
+        
+        </form>
+  
+    </div>
+  </div>
+  
+
+
+
+
+{% endblock contenido %}

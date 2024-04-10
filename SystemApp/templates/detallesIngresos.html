@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block etiqueta %}
+    Detalles
+{% endblock etiqueta %}
+
+
+{% block botones %}
+<div class="contenedor-boton">
+    <div class="boton-superior">
+        <div class="boton-icono">
+            <a class="a-ingreso" href="{% url 'listaIngreso' %}"><img class="img-boton" src="{% static 'Icons/ingreso.png' %}" alt=""></a>
+
+           
+
+        </div>
+        
+
+    </div>
+    <a class="a-p-ingreso" href="{% url 'listaIngreso' %}"> <p class="tex-boton">Ingresos</p></a>
+   
+
+</div>
+<div class="contenedor-boton">
+    <div class="boton-superior">
+        <div class="boton-icono">
+            <a class="a-egreso" href="{% url 'listaEgreso' %}"><img class="img-boton" src="{% static 'Icons/gasto.png' %}" alt=""></a>
+
+
+        </div>
+        
+
+    </div>
+    <a class="a-p-egreso" href="{% url 'listaEgreso' %}"> <p class="tex-boton">Egresos</p></a>
+
+</div>
+
+    
+{% endblock botones %}
+
+
+
+{% block contenido %}
+<div class="contenido-formulario-detalle-ingreso-egreso">
+    <div class="tablas-titulo">
+        <h3>Detalle Ingreso</h3>
+
+
+    </div>
+    <div class="contenido-formulario-hijo-detalle-ingreso-egreso">
+      
+        <table class="table table-success table-striped mt-3" style="margin:0px;">
+           
+            <thead>
+                
+    
+                <th style="text-align: center;">Mes</th>
+                <th style="text-align: center;">Ingreso</th>
+                <th style="text-align: center;">Tipo de Ingreso</th>
+                <th style="text-align: center;">Monto</th>
+                <th style="text-align: center;">Acciones</th>
+            </thead>
+            <tbody> 
+                {% for formulario in formulario_ingresos %}
+              
+                <tr>
+                    
+                    <td style="text-align: center;">{{formulario.mes.nombre}}</td>
+                    <td style="text-align: center;">{{formulario.ingreso.nombre}}</td>
+                    <td style="text-align: center;">{{formulario.tipo_ingreso.nombre}}</td>
+                    <td style="text-align: center;">{{formulario.monto}}</td>
+                    <td style="text-align: center;">
+                        <a href="{% url 'editarIngreso' formulario.id %}" class="btn btn-warning" style="margin-right: 30px;">Editar</a>
+                        <a href="{% url 'borrarIngreso' formulario.id %}" class="btn btn-danger">Borrar</a>
+                        
+                    </td>
+                </tr>
+                {% endfor %}
+                <tr>
+                    <td colspan="3" style="text-align: star;"><strong>Total de ingresos:</strong></td>
+                    <td style="text-align: center;">{{total_ingresos}}</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+    
+
+</div>
+
+{% endblock contenido %}

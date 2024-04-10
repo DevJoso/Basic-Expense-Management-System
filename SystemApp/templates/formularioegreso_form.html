@@ -1,0 +1,92 @@
+
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %} 
+
+
+
+{% block etiqueta %}
+
+   
+    Nuevo
+
+{% endblock etiqueta %}
+
+
+
+
+{% block botones %}
+
+    <div class="contenedor-boton">
+        <div class="boton-superior">
+            <div class="boton-icono">
+                <a class="a-ingreso" href="{% url 'formulario_ingreso_creado' %}"><img class="img-boton" src="{% static 'Icons/ingreso.png' %}" alt=""></a>
+
+               
+    
+            </div>
+            
+    
+        </div>
+        <a class="a-p-ingreso" href="{% url 'formulario_ingreso_creado' %}"> <p class="tex-boton">Ingresos</p></a>
+       
+
+    </div>
+    <div class="contenedor-boton">
+        <div class="boton-superior">
+            <div class="boton-icono">
+                <a class="a-egreso" href="{% url 'formulario_egreso_creado' %}"><img class="img-boton" src="{% static 'Icons/gasto.png' %}" alt=""></a>
+
+    
+            </div>
+            
+    
+        </div>
+        <a class="a-p-egreso" href="{% url 'formulario_egreso_creado' %}"> <p class="tex-boton">Egresos</p></a>
+
+    </div>
+    
+
+{% endblock botones %}
+
+
+
+
+{% block contenido %}
+<div class="contenido-formulario">
+    <div class="nuevo-ingreso-egreso">
+        <h3>Nuevo  Egreso</h3>
+
+      </div>
+    <div class="contenido-formulario-hijo">
+        <form method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button  class="btn btn-primary" type="submit" style="margin-right: 200px;">Guardar</button>
+            <a href="{% url "listaEgreso" %}" class="btn btn-danger">Cancelar</a>
+        </form>
+    </div> 
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$("#id_gasto").change(function () {
+  var url = "{% url 'ajax_load_tipos_egreso' %}";
+  var gastoId = $(this).val();
+
+  $.ajax({
+    url: url,
+    data: {
+      'gasto': gastoId
+    },
+    success: function (data) {
+      $("#id_tipo_gasto").html("<option value=''>---------</option>");
+      data.forEach(function (item) {
+        $("#id_tipo_gasto").append("<option value='" + item.id + "'>" + item.nombre + "</option>");
+      });
+    }
+  });
+});
+</script>
+
+{% endblock contenido %}

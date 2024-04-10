@@ -1,0 +1,45 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block etiqueta %}
+    Detalles
+{% endblock etiqueta %}
+
+{% block botones %}
+
+    <div class="titulo-inicio">
+        <h1 style:"color:white">Gestor de Ingresos y Egresos</h1>
+    </div>
+
+
+{% endblock botones %}
+
+
+{% block contenido %}
+<div class="contenido-formulario-borrar">
+    <div class="borrar">
+        <h3>Eliminar Ingreso</h3>
+
+      </div>
+
+
+    <div class="contenido-formulario-hijo-borrar">
+        <p>¿Esta seguro que desea eliminar : {{ object }}?</p>
+        <br>
+        
+        <form method="POST">
+            {% csrf_token %}
+            
+            <button type="submit" class="btn btn-danger" style="margin-right: 30px;">Confirmar Eliminación</button> 
+            <a href="{% url 'detallesIngresos' object.mes.id %}" class="btn btn-info"  >Cancelar Eliminación</a>
+
+        </form>
+  
+    </div>
+  </div>
+  
+
+{% endblock contenido %}
+ 
